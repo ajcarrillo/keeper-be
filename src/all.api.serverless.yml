@@ -1,0 +1,2 @@
+#Clients module
+- '${file(src/clients/clients.lambda.yml)}'

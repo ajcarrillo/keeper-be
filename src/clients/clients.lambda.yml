@@ -1,0 +1,7 @@
+get-all-clients:
+  handler: src/clients/handler.all
+  events:
+    - http:
+        path: api/v1/clients
+        method: GET
+        cors: true

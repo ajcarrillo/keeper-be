@@ -1,0 +1,13 @@
+service: serverless-http-api-typescript
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  ${file(src/all.api.serverless.yml)}
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
