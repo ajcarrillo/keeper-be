@@ -1,0 +1,15 @@
+get-all-partners:
+  handler: src/courses/handler.allPartners
+  events:
+    - http:
+        path: api/v1/partners
+        method: GET
+        cors: true
+
+create-partner:
+  handler: src/courses/handler.createPartner
+  events:
+    - http:
+        path: api/v1/partners
+        method: POST
+        cors: true

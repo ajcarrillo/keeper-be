@@ -1,2 +1,3 @@
 #Clients module
 - '${file(src/clients/clients.lambda.yml)}'
+- '${file(src/courses/course.lambda.yml)}'

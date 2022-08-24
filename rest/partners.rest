@@ -1,0 +1,10 @@
+GET http://localhost:3000/dev/api/v1/partners
+
+###
+
+POST http://localhost:3000/dev/api/v1/partners
+Content-Type: application/json
+
+{
+  "name": "Google"
+}
