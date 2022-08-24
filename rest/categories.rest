@@ -1,0 +1,152 @@
+GET http://localhost:3000/dev/api/v1/categories
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Agile Project Management"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Change Management"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Cloud AWS"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Data Science"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Google"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Innovation"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "IT Architecture"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "IT Governance"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "IT Service Management"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Microsoft"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "People"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Project Management"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "SAP"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Six Sigma"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/categories
+Content-Type: application/json
+
+{
+  "name": "Software Development"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

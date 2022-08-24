@@ -13,3 +13,19 @@ create-partner:
         path: api/v1/partners
         method: POST
         cors: true
+
+get-all-categories:
+  handler: src/courses/handler.allCategories
+  events:
+    - http:
+        path: api/v1/categories
+        method: GET
+        cors: true
+
+create-category:
+  handler: src/courses/handler.createCategory
+  events:
+    - http:
+        path: api/v1/categories
+        method: POST
+        cors: true
