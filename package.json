@@ -2,7 +2,7 @@
   "name": "keeper-serverless",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "serverless.yml",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "SLS_DEBUG=* serverless offline",
@@ -11,9 +11,21 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "inversify": "^6.0.1",
+    "mongodb": "^4.9.0",
+    "mongoose": "^6.5.2",
+    "reflect-metadata": "^0.1.13",
+    "serverless-typeorm": "^0.2.18",
+    "typeorm": "^0.3.7",
+    "uuid": "^8.3.2"
+  },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^18.7.11",
+    "@types/uuid": "^8.3.4",
+    "dotenv": "^16.0.1",
     "serverless": "^3.1.1",
     "serverless-offline": "^9.2.6",
     "serverless-plugin-typescript": "^2.1.1",
