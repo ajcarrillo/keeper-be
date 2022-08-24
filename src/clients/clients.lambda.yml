@@ -5,3 +5,11 @@ get-all-clients:
         path: api/v1/clients
         method: GET
         cors: true
+
+create-client:
+  handler: src/clients/handler.create
+  events:
+    - http:
+        path: api/v1/clients
+        method: POST
+        cors: true
