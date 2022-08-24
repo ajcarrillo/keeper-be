@@ -1,1 +1,12 @@
 GET http://localhost:3000/dev/api/v1/clients
+
+###
+
+POST http://localhost:3000/dev/api/v1/clients
+Content-Type: application/json
+
+{
+  "name": "Palace Resorts",
+  "email": "Iván Villafán",
+  "contact": "ivahernandez@palaceresorts.com"
+}
