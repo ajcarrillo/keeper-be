@@ -1,4 +1,5 @@
 import { Column, Entity, ObjectID, ObjectIdColumn } from "typeorm"
+import { Category } from "./category.entity"
 
 @Entity("courses")
 export class Course {
@@ -7,6 +8,9 @@ export class Course {
 
   @Column()
   name: string
+
+  @Column((type) => Category)
+  category: Category
 
   @Column()
   duration: string

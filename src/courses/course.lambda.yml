@@ -29,3 +29,27 @@ create-category:
         path: api/v1/categories
         method: POST
         cors: true
+
+get-all-courses:
+  handler: src/courses/handler.allCourses
+  events:
+    - http:
+        path: api/v1/courses
+        method: GET
+        cors: true
+
+create-course:
+  handler: src/courses/handler.createCourse
+  events:
+    - http:
+        path: api/v1/courses
+        method: POST
+        cors: true
+
+update-course:
+  handler: src/courses/handler.updateCourse
+  events:
+    - http:
+        path: api/v1/courses/{id}
+        method: PUT
+        cors: true
