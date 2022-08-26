@@ -5,6 +5,9 @@ import { ClientService } from "../clients/client.service"
 import { PartnersService } from "../courses/services/partners.service"
 import { CategoryService } from "../courses/services/category.service"
 import { CourseService } from "../courses/services/course.service"
+import { DbClass } from "./db/db.class"
+import { DbClientInterface } from "../common/interfaces/db-client.interface"
+import { TYPES } from "./types"
 
 const container: Container = new Container({ defaultScope: "Singleton" })
 
@@ -13,5 +16,6 @@ container.bind<ClientService>(ClientService).to(ClientService)
 container.bind<PartnersService>(PartnersService).to(PartnersService)
 container.bind<CategoryService>(CategoryService).to(CategoryService)
 container.bind<CourseService>(CourseService).to(CourseService)
+container.bind<DbClientInterface>(TYPES.DbClientInterface).to(DbClass)
 
 export default container

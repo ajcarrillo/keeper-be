@@ -1,37 +1,52 @@
-import { injectable } from "inversify"
-import { DatabaseManager } from "../config/db/db"
-import { Client } from "./entities"
+import { inject, injectable } from "inversify"
+import { DbClientInterface } from "../common/interfaces/db-client.interface"
+import { TYPES } from "../config/types"
+import Client from "./entities/client.model"
+import { CreateClientDto } from "./dto/create-client.dto"
+import { validate, validateOrReject } from "class-validator"
+import { plainToClass } from "class-transformer"
 
 @injectable()
 export class ClientService {
-  private _mongoManager: DatabaseManager
+  private _mongooseManager: DbClientInterface
 
   constructor(
-    mongoManager: DatabaseManager,
+    @inject(TYPES.DbClientInterface) mongooseManager: DbClientInterface,
   ) {
-    this._mongoManager = mongoManager
+    this._mongooseManager = mongooseManager
   }
 
-  async getAll(): Promise<Client[]> {
-    await this._mongoManager.initialize()
+  async getAll(): Promise<typeof Client[]> {
+    const db = await this._mongooseManager.getDbConnection()
 
-    const repository = await this._mongoManager.getRepository(Client)
-    const clients = await repository.find()
+    const clients = await db.Client.find()
 
     return new Promise((resolve) => {
       resolve(clients)
     })
   }
 
-  async create(client: Client): Promise<Client> {
-    await this._mongoManager.initialize()
+  async create(client: CreateClientDto): Promise<typeof Client> {
 
-    const repository = await this._mongoManager.getRepository(Client)
-    await repository.save(client)
+    try {
+      let createClientDto: CreateClientDto = plainToClass(CreateClientDto, client)
+      await validateOrReject(createClientDto)
 
-    return new Promise((resolve) => {
-      resolve(client)
-    })
+      const db = await this._mongooseManager.getDbConnection()
+
+      const newClient = await db.Client.create(client)
+
+      await newClient.save()
+
+      return new Promise((resolve) => {
+        resolve(newClient)
+      })
+    } catch (e) {
+      console.log("Caught promise rejection (validation failed). Errors: ", e)
+      return new Promise((resolve) => {
+        resolve(e)
+      })
+    }
   }
 
 }

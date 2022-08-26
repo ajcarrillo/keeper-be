@@ -6,7 +6,39 @@ POST http://localhost:3000/dev/api/v1/clients
 Content-Type: application/json
 
 {
+  "name": "Learnquest",
+  "contact": "José Bragado",
+  "email": "jose.bragado@learnquest.com"
+}
+
+###
+POST http://localhost:3000/dev/api/v1/clients
+Content-Type: application/json
+
+{
+  "name": "Grupo Xcaret",
+  "contact": "Evelyn Escalante ",
+  "email": "eescalante@xcaret.com"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/clients
+Content-Type: application/json
+
+{
+  "name": "Accenture",
+  "contact": "Elsa Fuentes",
+  "email": "e.fuentes.martinez@accenture.com"
+}
+
+###
+
+POST http://localhost:3000/dev/api/v1/clients
+Content-Type: application/json
+
+{
   "name": "Palace Resorts",
-  "email": "Iván Villafán",
-  "contact": "ivahernandez@palaceresorts.com"
+  "contact": "Iván Villafán",
+  "email": "ivahernandez@palaceresorts.com"
 }
