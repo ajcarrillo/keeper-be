@@ -1,42 +1,43 @@
-import { injectable } from "inversify"
-import { DatabaseManager } from "../../config/db/db"
-import { Category } from "../entities"
+import { inject, injectable } from "inversify"
+import { TYPES } from "../../config/types"
+import { CategoryRepositoryInterface } from "../interfaces/category-repository.interface"
+import Category from "../entities/category.model"
+import { CreateCategoryDto } from "../dto/create-category.dto"
+import { plainToClass } from "class-transformer"
+import { validateOrReject } from "class-validator"
 
 
 @injectable()
 export class CategoryService {
-  private _mongoManager: DatabaseManager
 
   constructor(
-    mongoManager: DatabaseManager,
+    @inject(TYPES.CategoryRepositoryInterface) private _categoryRepository: CategoryRepositoryInterface,
   ) {
-    this._mongoManager = mongoManager
   }
 
-  async getAll(): Promise<Category[]> {
-    await this._mongoManager.initialize()
-
-    const repository = await this._mongoManager.getRepository(Category)
-    const categories = await repository.find()
-
-    await this._mongoManager.close()
+  async getAll(): Promise<typeof Category[]> {
+    const categories = await this._categoryRepository.all()
 
     return new Promise((resolve) => {
       resolve(categories)
     })
   }
 
-  async create(category: Category): Promise<Category> {
-    await this._mongoManager.initialize()
+  async create(category: CreateCategoryDto): Promise<typeof Category> {
+    try {
+      let createCategoryDto: CreateCategoryDto = plainToClass(CreateCategoryDto, category)
+      await validateOrReject(createCategoryDto)
 
-    const repository = await this._mongoManager.getRepository(Category)
-    await repository.save(category)
+      const newCategory = await this._categoryRepository.save(category)
 
-    await this._mongoManager.close()
-
-    return new Promise((resolve) => {
-      resolve(category)
-    })
+      return new Promise((resolve) => {
+        resolve(newCategory)
+      })
+    } catch (e) {
+      return new Promise((resolve) => {
+        resolve(e)
+      })
+    }
   }
 }
 

@@ -3,6 +3,7 @@ import { injectable } from "inversify"
 import { DbClientInterface } from "../../common/interfaces/db-client.interface"
 import Client from "../../clients/entities/client.model"
 import Partner from "../../courses/entities/partner.model"
+import Category from "../../courses/entities/category.model"
 
 @injectable()
 export class DbClass implements DbClientInterface {
@@ -10,6 +11,7 @@ export class DbClass implements DbClientInterface {
     return {
       Client,
       Partner,
+      Category,
     }
   }
 
