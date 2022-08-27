@@ -14,6 +14,8 @@ import { PartnerRepositoryInterface } from "../courses/interfaces/partner-reposi
 import { PartnerRepository } from "../courses/repositories/partner.repository"
 import { CategoryRepositoryInterface } from "../courses/interfaces/category-repository.interface"
 import { CategoryRepository } from "../courses/repositories/category.repository"
+import { CourseRepositoryInterface } from "../courses/interfaces/course-repository.interface"
+import { CourseRepository } from "../courses/repositories/course.repository"
 
 const container: Container = new Container({ defaultScope: "Singleton" })
 
@@ -26,5 +28,6 @@ container.bind<DbClientInterface>(TYPES.DbClientInterface).to(DbClass)
 container.bind<ClientRepositoryInterface>(TYPES.ClientRepositoryInterface).to(ClientRepository)
 container.bind<PartnerRepositoryInterface>(TYPES.PartnerRepositoryInterface).to(PartnerRepository)
 container.bind<CategoryRepositoryInterface>(TYPES.CategoryRepositoryInterface).to(CategoryRepository)
+container.bind<CourseRepositoryInterface>(TYPES.CourseRepositoryInterface).to(CourseRepository)
 
 export default container

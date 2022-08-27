@@ -3,4 +3,5 @@ export const TYPES = {
   ClientRepositoryInterface: Symbol.for("ClientRepositoryInterface"),
   PartnerRepositoryInterface: Symbol.for("PartnerRepositoryInterface"),
   CategoryRepositoryInterface: Symbol.for("CategoryRepositoryInterface"),
+  CourseRepositoryInterface: Symbol.for("CourseRepositoryInterface"),
 }

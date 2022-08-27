@@ -7,17 +7,11 @@ Content-Type: application/json
 
 {
   "name": "Introducción a Project Management",
-  "category": {
-    "_id": "630672e53b709b4e4e8efb47",
-    "name": "Project Management"
-  },
+  "category": "630672e53b709b4e4e8efb47",
   "duration": "",
   "has_certification": true,
   "certification": "Project Management Professional",
-  "partner": {
-    "_id": "63066997c3c2cb987fd5d8f4",
-    "name": "PMI"
-  }
+  "partner": "63066997c3c2cb987fd5d8f4"
 }
 
 ###
@@ -27,10 +21,7 @@ Content-Type: application/json
 
 {
   "name": "Introducción a Project Management",
-  "category": {
-    "_id": "630672e53b709b4e4e8efb47",
-    "name": "Project Management"
-  },
+  "category": "630672e53b709b4e4e8efb47",
   "duration": "2 días"
 }
 
@@ -41,16 +32,10 @@ Content-Type: application/json
 
 {
   "name": "Introducción a Project Management",
-  "category": {
-    "_id": "630672e53b709b4e4e8efb47",
-    "name": "Project Management"
-  },
-  "duration": "",
+  "category": "630672e53b709b4e4e8efb47",
+  "duration": "2 dias",
   "has_certification": true,
   "certification": "Project Management Professional",
-  "partner": {
-    "_id": "63066997c3c2cb987fd5d8f4",
-    "name": "PMI"
-  }
+  "partner": "63066997c3c2cb987fd5d8f4"
 }
 

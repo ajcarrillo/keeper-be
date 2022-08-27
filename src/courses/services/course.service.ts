@@ -1,57 +1,76 @@
-import { injectable } from "inversify"
-import { DatabaseManager } from "../../config/db/db"
-import { Course } from "../entities"
-import { validate as isUUID } from "uuid"
-import { ObjectID } from "mongodb"
+import { inject, injectable } from "inversify"
+import { TYPES } from "../../config/types"
+import { CourseRepositoryInterface } from "../interfaces/course-repository.interface"
+import Course from "../entities/course.model"
+import { CreateCourseDto } from "../dto/create-course.dto"
+import { plainToClass } from "class-transformer"
+import { validateOrReject } from "class-validator"
+
+//import { UpdateCourseDto } from "../dto/update-course.dto"
 
 @injectable()
 export class CourseService {
-  private _mongoManager: DatabaseManager
 
   constructor(
-    mongoManager: DatabaseManager,
+    @inject(TYPES.CourseRepositoryInterface) private _courseRepository: CourseRepositoryInterface,
   ) {
-    this._mongoManager = mongoManager
   }
 
-  async getAll(): Promise<Course[]> {
-    await this._mongoManager.initialize()
-
-    const repository = await this._mongoManager.getRepository(Course)
-    const courses = await repository.find()
+  async getAll(): Promise<typeof Course[]> {
+    const courses = await this._courseRepository.all(["category", "partner"])
 
     return new Promise((resolve) => {
       resolve(courses)
     })
   }
 
-  async create(course: Course): Promise<Course> {
-    await this._mongoManager.initialize()
+  async create(course: CreateCourseDto): Promise<typeof Course> {
+    try {
+      let createCourseDto: CreateCourseDto = plainToClass(CreateCourseDto, course)
+      await validateOrReject(createCourseDto)
 
-    const repository = await this._mongoManager.getRepository(Course)
-    await repository.save(course)
+      //TODO: populate category and partner
+      const newCourse = await this._courseRepository.save(course)
 
-    return new Promise((resolve) => {
-      resolve(course)
-    })
+      return new Promise((resolve) => {
+        resolve(newCourse)
+      })
+    } catch (e) {
+      return new Promise((resolve) => {
+        resolve(e)
+      })
+    }
   }
 
-  async update(id: string, course: Course): Promise<Course> {
-    await this._mongoManager.initialize()
-
-    const repository = await this._mongoManager.getRepository(Course)
-    await repository.updateOne({ _id: new ObjectID(id) } as any, { $set: course })
-
-    await this._mongoManager.close()
-
-    return new Promise((resolve) => {
-      resolve(course)
-    })
+  async update(id: string, updateCourse: typeof Course) {
+    throw new Error("Method not implemented.")
+    // try {
+    //   let updateCourseDto: UpdateCourseDto = plainToClass(UpdateCourseDto, updateCourse)
+    //   await validateOrReject(updateCourseDto)
+    //
+    //   const course = await this.findOne(id)
+    //
+    //   //TODO: move validation to method findeOne
+    //   if(!course) throw new Error("Course not found")
+    //
+    //   const newCourse = {...course, ...updateCourse} as typeof Course
+    //
+    //   const updatedCourse = await this._courseRepository.updateById(id, newCourse)
+    //
+    //   return new Promise((resolve) => {
+    //     resolve(updatedCourse)
+    //   })
+    // } catch (e) {
+    //   return new Promise((resolve) => {
+    //     resolve(e)
+    //   })
+    // }
   }
 
-  async findOne(id: string): Promise<Course> {
-    const repository = await this._mongoManager.getRepository(Course)
-    const course = await repository.findOne({ _id: new ObjectID(id) } as any)
+  async findOne(id: string): Promise<typeof Course> {
+
+    const course = await this._courseRepository.getById(id)
+
     return new Promise((resolve) => {
       resolve(course)
     })
