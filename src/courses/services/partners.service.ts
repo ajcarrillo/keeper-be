@@ -1,36 +1,42 @@
-import { injectable } from "inversify"
-import { DatabaseManager } from "../../config/db/db"
-import { Partner } from "../entities"
+import { inject, injectable } from "inversify"
+import Partner from "../entities/partner.model"
+import { TYPES } from "../../config/types"
+import { PartnerRepositoryInterface } from "../interfaces/partner-repository.interface"
+import { CreatePartnerDto } from "../dto/create-partner.dto"
+import { plainToClass } from "class-transformer"
+import { validateOrReject } from "class-validator"
+
 
 @injectable()
 export class PartnersService {
-  private _mongoManager: DatabaseManager
 
   constructor(
-    mongoManager: DatabaseManager,
+    @inject(TYPES.PartnerRepositoryInterface) private _partnerRepository: PartnerRepositoryInterface,
   ) {
-    this._mongoManager = mongoManager
   }
 
-  async getAll(): Promise<Partner[]> {
-    await this._mongoManager.initialize()
-
-    const repository = await this._mongoManager.getRepository(Partner)
-    const partners = await repository.find()
+  async getAll(): Promise<typeof Partner[]> {
+    const partners = await this._partnerRepository.all()
 
     return new Promise((resolve) => {
       resolve(partners)
     })
   }
 
-  async create(partner: Partner): Promise<Partner> {
-    await this._mongoManager.initialize()
+  async create(partner: CreatePartnerDto): Promise<typeof Partner> {
+    try {
+      let createPartnerDto: CreatePartnerDto = plainToClass(CreatePartnerDto, partner)
+      await validateOrReject(createPartnerDto)
 
-    const repository = await this._mongoManager.getRepository(Partner)
-    await repository.save(partner)
+      const newPartner = await this._partnerRepository.save(partner)
 
-    return new Promise((resolve) => {
-      resolve(partner)
-    })
+      return new Promise((resolve) => {
+        resolve(newPartner)
+      })
+    } catch (e) {
+      return new Promise((resolve) => {
+        resolve(e)
+      })
+    }
   }
 }

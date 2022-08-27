@@ -1,8 +1,8 @@
-import { PartnersService } from "./services/partners.service"
-import container from "../config/inversify.config"
 import { Handler } from "aws-lambda"
+import container from "../config/inversify.config"
 import { ResponseManager } from "../common/utils/response-manager.utils"
 import { RequestManager, RequestParameters } from "../common/utils/request-manager.utils"
+import { PartnersService } from "./services/partners.service"
 import { CategoryService } from "./services/category.service"
 import { CourseService } from "./services/course.service"
 
