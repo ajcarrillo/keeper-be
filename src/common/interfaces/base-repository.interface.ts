@@ -1,5 +1,5 @@
 export interface BaseRepositoryInterface<T> {
-    all(): Promise<Array<T>>;
+    all(populate?: any[]): Promise<Array<T>>;
 
     getById(id: string): Promise<T>;
 

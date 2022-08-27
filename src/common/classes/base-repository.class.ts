@@ -12,16 +12,20 @@ export abstract class BaseRepositoryClass<T> implements BaseRepositoryInterface<
 
   abstract getModelDB(): string;
 
-  async all(): Promise<Array<T>> {
+  async all(populate: any[] = []): Promise<Array<T>> {
     const db = await this.db.getDbConnection()
-    const model = await db[this.getModelDB()].find()
+    const model = await db[this.getModelDB()].find().populate(populate)
     return new Promise((resolve) => {
       resolve(model)
     })
   }
 
-  getById(id: string): Promise<any> {
-    throw new Error("Method not implemented.")
+  async getById(id: string): Promise<T> {
+    const db = await this.db.getDbConnection()
+    const model = await db[this.getModelDB()].findById(id)
+    return new Promise((resolve) => {
+      resolve(model)
+    })
   }
 
   async save(model: T): Promise<T> {
@@ -33,8 +37,12 @@ export abstract class BaseRepositoryClass<T> implements BaseRepositoryInterface<
     })
   }
 
-  updateById(id: string, model: any): Promise<any> {
-    throw new Error("Method not implemented.")
+  async updateById(id: string, model: T): Promise<T> {
+    const db = await this.db.getDbConnection()
+    const newModel = await db[this.getModelDB()].findByIdAndUpdate(id, model, { new: true })
+    return new Promise((resolve) => {
+      resolve(newModel)
+    })
   }
 
   deleteById(id: string): Promise<void> {
